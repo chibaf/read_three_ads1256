@@ -17,7 +17,7 @@ data=[[],[],[]]
 while True:
   temp0=ads1256a.read(ser0)
   temp1=ads1256b.read(ser1)
-  temp2=ads1256b.read(ser2)
+  temp2=ads1256c.read(ser2)
   data[int(temp0[0])-1]=temp0[1:]
   data[int(temp1[0])-1]=temp1[1:]
   data[int(temp2[0])-1]=temp2[1:]
