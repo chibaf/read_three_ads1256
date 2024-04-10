@@ -14,8 +14,6 @@ fn="SL_"+str(today)+current_time+".csv"
 f=open(fn,'w',encoding="utf-8")
 start = time.time()
 
-ldata0=[0]*10
-ldata=[ldata0]*10
 ser0 = serial.Serial("/dev/ttyACM0",19200)
 ser1 = serial.Serial("/dev/ttyACM1",19200)
 ser2 = serial.Serial("/dev/ttyACM2",19200)
@@ -25,12 +23,8 @@ ads1256b=read_ads1256()
 ads1256c=read_ads1256()
 sport=m5logger2()
 
-data0=[0]*16
-data=[data0]*10
-data02=[0]*10
-data2=[data02]*10
-
 while True:
+ data=[[],[],[]]
  try:
   ttime=time.time()-start
   if ttime<0.001:
@@ -45,10 +39,15 @@ while True:
   data[int(temp1[0])-1]=temp1[1:]
   data[int(temp2[0])-1]=temp2[1:]
   array=data[0]+data[1]+data[2]
-#  array=data[0]+data[1]+data[2]
-  print(array)
   array2=sport.read_logger(serm)
-  print(array2)
+  outst=st+ss[1:5]+","+str(rttime)+","
+  for i in range(0,len(array)):
+    outst=outst+str(array[i])+","
+  for i in range(0,len(array2)-1):
+    outst=outst+str(array2[i])+","
+  outst=outst+str(array2[len(array2)-1])
+  outst=outst+"\n"
+  print(outst)
 #  exit()
 #  f.write(st+ss[1:5]+","+str(rttime)+","+str(array[0])+","+str(array[1])+","+str(array[2])+","+str(array[3])+","+str(array[4])+","+str(array[5])+","+str(array[6])+","+str(array[7])+","+str(array[8])+","+str(array[9])+","+str(array[10])+","+str(array[11])+","+str(array[12])+","+str(array[13])+","+str(array[14])+","+str(array[15])+","+str(array2[0])+","+str(array2[1])+","+str(array2[2])+","+str(array2[3])+","+str(array2[4])+","+str(array2[5])+","+str(array2[6])+","+str(array2[7])+","+str(array2[8])+","+str(array2[9])+"\n")
 #  print(st+ss[1:5]+","+str(rttime)+","+str(array[0])+","+str(array[1])+","+str(array[2])+","+str(array[3])+","+str(array[4])+","+str(array[5])+","+str(array[6])+","+str(array[7])+","+str(array[8])+","+str(array[9])+","+str(array[10])+","+str(array[11])+","+str(array[12])+","+str(array[13])+","+str(array[14])+","+str(array[15])+","+str(array2[0])+","+str(array2[1])+","+str(array2[2])+","+str(array2[3])+","+str(array2[4])+","+str(array2[5])+","+str(array2[6])+","+str(array2[7])+","+str(array2[8])+","+str(array2[9])+"\n")
